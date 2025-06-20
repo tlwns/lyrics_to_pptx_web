@@ -1,3 +1,5 @@
+from io import BytesIO
+
 from fastapi import FastAPI, HTTPException, status, responses
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -15,7 +17,7 @@ app.add_middleware(
 @app.post("/generate")
 async def generate_pptx(lyrics: str, filename: str = ""):
     try:
-        file_path = "generated_presentation.pptx"
+        pptx_io = BytesIO()
     except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -27,8 +29,9 @@ async def generate_pptx(lyrics: str, filename: str = ""):
             detail="An unexpected error occurred: " + str(e)
         ) from e
 
-    return responses.FileResponse(
-        path=file_path,
-        filename=filename if filename else "default.pptx",
-        media_type="application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    return responses.StreamingResponse(
+        pptx_io,
+        media_type="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        headers={
+            "Content-Disposition": f"attachment; filename={filename or 'lyrics.pptx'}"}
     )
