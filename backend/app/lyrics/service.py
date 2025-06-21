@@ -17,6 +17,7 @@ def generate_pptx_in_memory(lyrics: str) -> BytesIO:
     Returns:
         BytesIO: A BytesIO object containing the generated PowerPoint file.
     """
+
     if not lyrics.strip():
         raise ValueError("Lyrics cannot be empty")
 
@@ -51,19 +52,22 @@ def build_pptx(lyrics: str, background_image=None) -> Presentation:
                                          width=pres.slide_width, height=pres.slide_height)
             continue
 
-        lines = [l for l in section.splitlines() if not re.match(
-            r'https?://|^\d{1,2}/\d{1,2}/\d{2,4}|Verse\d*|Chorus|Tag|Prechorus|Bridge',
-            l)]
+        lines = section.splitlines()
+        lines = [line.strip() for line in lines]
 
+        # If there is more than 5 lines in a single section, split them into two slides
         parts = [lines] if len(lines) <= 5 else [
             lines[:len(lines)//2], lines[len(lines)//2:]]
 
         for part in parts:
+            # Create a new slide with a blank layout
+            # and add the background image if provided
             slide = pres.slides.add_slide(pres.slide_layouts[6])
             if background_image:
                 slide.shapes.add_picture(background_image, Inches(0), Inches(0),
                                          width=pres.slide_width, height=pres.slide_height)
 
+            # Add a textbox with the lyrics
             box = slide.shapes.add_textbox(
                 Inches(2), Inches(2), Inches(9.5), Inches(5))
             frame = box.text_frame
@@ -73,7 +77,7 @@ def build_pptx(lyrics: str, background_image=None) -> Presentation:
                 para.alignment = PP_ALIGN.CENTER
                 para.font.size = Pt(44)
 
-    # Add a final slide with no content
+    # Add a final blank slide
     pres.slides.add_slide(pres.slide_layouts[5])
     if background_image:
         pres.slides[-1].shapes.add_picture(background_image, Inches(0), Inches(0),

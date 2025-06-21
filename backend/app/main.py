@@ -1,8 +1,16 @@
-from fastapi import FastAPI, HTTPException, status
+import uvicorn
+from fastapi import FastAPI, HTTPException, status, Body
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 from fastapi.responses import StreamingResponse
 from lyrics.service import generate_pptx_in_memory
+
+
+class LyricsRequest(BaseModel):
+    lyrics: str
+    filename: str = "lyrics"
+
 
 app = FastAPI()
 
@@ -16,7 +24,7 @@ app.add_middleware(
 
 
 @app.post("/generate")
-async def generate_pptx(lyrics: str, filename: str = ""):
+async def generate_pptx(data: LyricsRequest = Body(...)):
     """Generate a PowerPoint presentation from the provided lyrics.
 
     Args:
@@ -27,7 +35,7 @@ async def generate_pptx(lyrics: str, filename: str = ""):
         StreamingResponse: A response containing the generated PowerPoint file.
     """
     try:
-        pptx_io = generate_pptx_in_memory(lyrics)
+        pptx_io = generate_pptx_in_memory(data.lyrics)
     except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -43,5 +51,8 @@ async def generate_pptx(lyrics: str, filename: str = ""):
         pptx_io,
         media_type="application/vnd.openxmlformats-officedocument.presentationml.presentation",
         headers={
-            "Content-Disposition": f"attachment; filename={filename or 'lyrics.pptx'}"}
+            "Content-Disposition": f"attachment; filename={data.filename or 'lyrics.pptx'}"}
     )
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)

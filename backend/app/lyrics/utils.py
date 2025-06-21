@@ -12,10 +12,9 @@ def split_lyrics(lyrics: str) -> list[str]:
     """
     lyrics = lyrics.replace('\u200b', '')
     sections = re.split(
-        r'(?=Verse\d*|Tag|Chorus|Bridge|Prechorus|\n\s*\n|////)',
+        r'^\s*(?:Verse|Tag|Chorus|Bridge|Prechorus)\s*\d*|^(\s*////\s*)$|\n\s*\n',
         lyrics,
-        flags=re.IGNORECASE
+        flags=re.IGNORECASE | re.MULTILINE
     )
-    cleaned = [s.strip() for s in sections if s.strip()]
-    cleaned = [s for s in cleaned if not re.match(r'\w+.com', s)]
+    cleaned = [s.strip() for s in sections if s]
     return cleaned
