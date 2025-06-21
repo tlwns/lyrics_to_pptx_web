@@ -1,4 +1,3 @@
-import re
 from io import BytesIO
 
 from pptx import Presentation
