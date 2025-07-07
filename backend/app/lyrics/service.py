@@ -38,7 +38,10 @@ def build_pptx(lyrics: str, background_image=None) -> Presentation:
         Presentation: A Presentation object containing the slides.
     """
 
-    pres = Presentation()
+    pres = Presentation(
+        # import from static files or a default template
+        "app/static/blank-16x9.pptx"
+    )
 
     lyrics_sections = split_lyrics(lyrics)
 
