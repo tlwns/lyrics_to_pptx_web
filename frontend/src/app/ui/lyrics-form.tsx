@@ -29,13 +29,17 @@ export default function LyricsForm() {
   }, [isPending, state]);
 
   return (
-    <form className='w-full max-w-sm' action={formAction}>
+    <form action={formAction} className='space-y-4'>
       <div className='mb-4'>
-        <label htmlFor='lyrics'>Paste in song lyrics</label>
+        <label htmlFor='lyrics' className='block mb-2'>
+          Paste in song lyrics
+        </label>
         <textarea id='lyrics' name='lyrics' required></textarea>
       </div>
-      <div>
-        <label htmlFor='fileName'>Name the file</label>
+      <div className='mb-4'>
+        <label htmlFor='fileName' className='block mb-2'>
+          Name the file
+        </label>
         <input
           id='fileName'
           name='fileName'
