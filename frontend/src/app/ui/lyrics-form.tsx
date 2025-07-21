@@ -7,7 +7,7 @@ export default function LyricsForm() {
     message: null,
     errors: {},
     blob: null,
-    fileName: null,
+    payload: null,
   };
   const [state, formAction, isPending] = useActionState(
     createPptx,
@@ -19,7 +19,7 @@ export default function LyricsForm() {
       const url = URL.createObjectURL(state.blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = state.fileName ?? 'lyrics';
+      a.download = (state.payload?.get('fileName') as string) || 'lyrics.pptx';
 
       document.body.appendChild(a);
       a.click();
@@ -34,7 +34,12 @@ export default function LyricsForm() {
         <label htmlFor='lyrics' className='block mb-2'>
           Paste in song lyrics
         </label>
-        <textarea id='lyrics' name='lyrics' required></textarea>
+        <textarea
+          id='lyrics'
+          name='lyrics'
+          required
+          defaultValue={(state.payload?.get('lyrics') as string) || ''}
+        ></textarea>
       </div>
       <div className='mb-4'>
         <label htmlFor='fileName' className='block mb-2'>
@@ -44,7 +49,7 @@ export default function LyricsForm() {
           id='fileName'
           name='fileName'
           type='text'
-          defaultValue='lyrics'
+          defaultValue={(state.payload?.get('fileName') as string) || 'lyrics'}
         />
       </div>
       <button>Create</button>

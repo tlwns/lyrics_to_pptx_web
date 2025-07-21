@@ -17,7 +17,7 @@ export type State = {
   };
   message?: string | null;
   blob?: Blob | null;
-  fileName?: string | null;
+  payload?: FormData | null;
 };
 
 export async function createPptx(prevState: State, formData: FormData) {
@@ -30,6 +30,7 @@ export async function createPptx(prevState: State, formData: FormData) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: 'Please fill in all required fields.',
+      payload: formData,
     };
   }
 
@@ -40,6 +41,7 @@ export async function createPptx(prevState: State, formData: FormData) {
       message: 'PPTX file generated successfully.',
       blob,
       fileName: fileName,
+      payload: formData,
     };
   } catch (error) {
     throw new Error((error as Error).message);
