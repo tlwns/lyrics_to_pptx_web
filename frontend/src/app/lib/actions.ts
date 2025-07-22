@@ -8,12 +8,16 @@ const FormSchema = z.object({
     required_error: 'Please paste in song lyrics',
   }),
   fileName: z.string().default('lyrics'),
+  backgroundOption: z.enum(['GIFT', 'NONE'], {
+    required_error: 'Please select a background option',
+  }),
 });
 
 export type State = {
   errors?: {
     lyrics?: string[];
     fileName?: string[];
+    backgroundOption?: string[];
   };
   message?: string | null;
   blob?: Blob | null;
@@ -24,6 +28,7 @@ export async function createPptx(prevState: State, formData: FormData) {
   const validatedFields = FormSchema.safeParse({
     lyrics: formData.get('lyrics'),
     fileName: formData.get('fileName'),
+    backgroundOption: formData.get('backgroundOption'),
   });
 
   if (!validatedFields.success) {
@@ -34,9 +39,9 @@ export async function createPptx(prevState: State, formData: FormData) {
     };
   }
 
-  const { lyrics, fileName } = validatedFields.data;
+  const { lyrics, fileName, backgroundOption } = validatedFields.data;
   try {
-    const blob = await fetchGeneratedPptx(lyrics, fileName);
+    const blob = await fetchGeneratedPptx(lyrics, fileName, backgroundOption);
     return {
       message: 'PPTX file generated successfully.',
       blob,
