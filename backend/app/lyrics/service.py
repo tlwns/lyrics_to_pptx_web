@@ -4,14 +4,16 @@ from pptx import Presentation
 from pptx.enum.text import PP_ALIGN
 from pptx.util import Inches, Pt
 from lyrics.utils import split_lyrics
+from lyrics.schemas import BackgroundOption
 
 
-def generate_pptx_in_memory(lyrics: str) -> BytesIO:
+def generate_pptx_in_memory(lyrics: str, background_option: BackgroundOption) -> BytesIO:
     """
     Generate a PowerPoint presentation in memory with the given lyrics.
 
     Args:
         lyrics (str): The lyrics to include in the PowerPoint slides.
+        background_option (BackgroundOption): The background option for the slides.
 
     Returns:
         BytesIO: A BytesIO object containing the generated PowerPoint file.
@@ -21,18 +23,19 @@ def generate_pptx_in_memory(lyrics: str) -> BytesIO:
         raise ValueError("Lyrics cannot be empty")
 
     buffer = BytesIO()
-    pres = build_pptx(lyrics)
+    pres = build_pptx(lyrics, background_option)
     pres.save(buffer)
     buffer.seek(0)  # Reset the buffer position to the beginning
     return buffer
 
 
-def build_pptx(lyrics: str, background_image=None) -> Presentation:
+def build_pptx(lyrics: str, background_option: BackgroundOption) -> Presentation:
     """
     Build a PowerPoint presentation with the given lyrics.
 
     Args:
         lyrics (str): The lyrics to include in the PowerPoint slides.
+        background_option (BackgroundOption): The background option for the slides.
 
     Returns:
         Presentation: A Presentation object containing the slides.
@@ -49,8 +52,8 @@ def build_pptx(lyrics: str, background_image=None) -> Presentation:
         if section == "////":
             # Add a black slide if new song is indicated by "////"
             slide = pres.slides.add_slide(pres.slide_layouts[5])
-            if background_image:
-                slide.shapes.add_picture(background_image, Inches(0), Inches(0),
+            if background_option is BackgroundOption.GIFT:
+                slide.shapes.add_picture("app/static/gift_lyrics_background.jpg", Inches(0), Inches(0),
                                          width=pres.slide_width, height=pres.slide_height)
             continue
 
@@ -65,8 +68,8 @@ def build_pptx(lyrics: str, background_image=None) -> Presentation:
             # Create a new slide with a blank layout
             # and add the background image if provided
             slide = pres.slides.add_slide(pres.slide_layouts[6])
-            if background_image:
-                slide.shapes.add_picture(background_image, Inches(0), Inches(0),
+            if background_option is BackgroundOption.GIFT:
+                slide.shapes.add_picture("app/static/gift_lyrics_background.jpg", Inches(0), Inches(0),
                                          width=pres.slide_width, height=pres.slide_height)
 
             # Add a textbox with the lyrics
@@ -80,9 +83,9 @@ def build_pptx(lyrics: str, background_image=None) -> Presentation:
                 para.font.size = Pt(44)
 
     # Add a final blank slide
-    pres.slides.add_slide(pres.slide_layouts[5])
-    if background_image:
-        pres.slides[-1].shapes.add_picture(background_image, Inches(0), Inches(0),
-                                           width=pres.slide_width, height=pres.slide_height)
+    slide = pres.slides.add_slide(pres.slide_layouts[5])
+    if background_option is BackgroundOption.GIFT:
+        slide.shapes.add_picture("app/static/gift_lyrics_background.jpg", Inches(0), Inches(0),
+                                 width=pres.slide_width, height=pres.slide_height)
 
     return pres
