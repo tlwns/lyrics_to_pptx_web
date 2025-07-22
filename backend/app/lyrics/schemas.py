@@ -3,9 +3,9 @@ from enum import Enum
 
 
 class BackgroundOption(str, Enum):
-    NONE = "none"
+    NONE = "NONE"
     GIFT = "GIFT"
-    IMAGE = "image"
+    CUSTOM = "CUSTOM"
 
 
 class LyricsRequest(BaseModel):
