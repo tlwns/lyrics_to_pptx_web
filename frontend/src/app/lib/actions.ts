@@ -4,12 +4,17 @@ import { z } from 'zod';
 import { fetchGeneratedPptx } from '@/app/lib/data';
 
 const FormSchema = z.object({
-  lyrics: z.string({
-    required_error: 'Please paste in song lyrics',
-  }),
+  lyrics: z
+    .string({
+      invalid_type_error: 'Please paste in song lyrics',
+    })
+    .trim()
+    .min(1, {
+      message: 'Lyrics cannot be empty',
+    }),
   fileName: z.string().default('lyrics'),
   backgroundOption: z.enum(['GIFT', 'NONE'], {
-    required_error: 'Please select a background option',
+    invalid_type_error: 'Please select a background option',
   }),
 });
 

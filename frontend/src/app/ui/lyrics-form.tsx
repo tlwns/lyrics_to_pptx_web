@@ -70,11 +70,24 @@ export default function LyricsForm() {
         <textarea
           id='lyrics'
           name='lyrics'
+          aria-describedby='lyrics-error'
           defaultValue={(state.payload?.get('lyrics') as string) || ''}
           className='w-full outline-1 -outline-offset-1 outline-gray-300 rounded-md focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600 px-3 py-1.5 text-base sm:text-sm/6 '
           rows={12}
           placeholder={placeHolderLyrics}
         />
+        <div id='lyrics-error' aria-live='polite' aria-atomic='true'>
+          {state.errors?.lyrics &&
+            state.errors.lyrics.map((error) => (
+              <p
+                key={error}
+                id='lyrics-error'
+                className='text-sm text-red-500 mt-2'
+              >
+                {error}
+              </p>
+            ))}
+        </div>
       </div>
       <Listbox
         name='backgroundOption'
