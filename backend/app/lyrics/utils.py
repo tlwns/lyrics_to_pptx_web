@@ -12,7 +12,7 @@ def split_lyrics(lyrics: str) -> list[str]:
     """
     lyrics = lyrics.replace('\u200b', '')
     sections = re.split(
-        r'^\s*(?:Verse|Tag|Chorus|Bridge|Prechorus)\s*\d*|^(\s*////\s*)$|\n\s*\n',
+        r'^.*\b(?:Verse|Tag|Pre-Chorus|Prechorus|Chorus|Bridge)\b.*$|^(\s*////\s*)$|\n\s*\n',
         lyrics,
         flags=re.IGNORECASE | re.MULTILINE
     )
