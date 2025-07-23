@@ -1,6 +1,8 @@
+# Lyrics to PPTX
+
 Check it out [here](https://lyrics-to-pptx-web.vercel.app/)!
 
-# Project Documentation
+## Project Documentation
 
 Welcome to the documentation for the **Lyrics to PPTX Web App**.
 
