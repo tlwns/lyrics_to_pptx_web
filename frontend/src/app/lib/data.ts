@@ -1,10 +1,12 @@
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 export async function fetchGeneratedPptx(
   lyrics: string,
   fileName: string,
   backgroundOption: 'GIFT' | 'NONE'
 ) {
   try {
-    const response = await fetch('http://0.0.0.0:8000/generate', {
+    const response = await fetch(`${BACKEND_URL}/generate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
