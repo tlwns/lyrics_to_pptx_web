@@ -17,7 +17,6 @@ Use this folder to explore system design, API details, and deployment notes.
 ## Docs Index
 
 - [System Architecture](architecture.md)
-- [API Reference](api.md)
 - [Backend Logic](backend.md)
 - [Frontend Structure](frontend.md)
 - [Deployment](deployment.md)
