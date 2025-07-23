@@ -12,12 +12,7 @@ This project uses:
 - ✅ Next.js (React) for the frontend
 - ✅ python-pptx for dynamic PowerPoint generation
 
-Use this folder to explore system design, API details, and deployment notes.
-
 ## Docs Index
 
 - [System Architecture](architecture.md)
-- [Frontend Structure](frontend.md)
-- [Deployment](deployment.md)
-- [Design Tradeoffs](tradeoffs.md)
 - [TODOs & Roadmap](todos.md)
