@@ -9,7 +9,7 @@ This app converts raw lyrics into PowerPoint files for presentation purposes.
 - **Frontend**: Next.js (React, TypeScript, fetch-based form submission)
 - **Backend**: FastAPI (Python), handles PPTX generation and download
 - **PPTX**: [`python-pptx`](https://python-pptx.readthedocs.io/en/latest/)
-- **Hosting**: (Planned) Vercel for frontend, Render/Fly.io for backend
+- **Hosting**: Vercel for frontend, Render for backend
 
 ## Application Flow
 
