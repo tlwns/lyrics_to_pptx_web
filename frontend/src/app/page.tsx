@@ -4,7 +4,7 @@ import { Music } from 'lucide-react';
 export default function Home() {
   return (
     <main className='flex flex-col items-center justify-center min-h-screen md:bg-indigo-600'>
-      <div className='mb-10 mt-6 flex items-center gap-2'>
+      <div className='md:mb-10 md:mt-6 sm:mt-5 flex items-center gap-2'>
         <h2 className='text-center text-2xl/9 font-bold tracking-tight md:text-white text-indigo-600 '>
           Lyrics to PPTX Generator
         </h2>
