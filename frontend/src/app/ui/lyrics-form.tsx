@@ -1,7 +1,7 @@
 'use client';
 import { createPptx, State } from '@/app/lib/actions';
 import { useActionState, useEffect, useState } from 'react';
-import { ChevronsUpDown, Circle, Download } from 'lucide-react';
+import { ChevronsUpDown, Download } from 'lucide-react';
 import {
   Label,
   Listbox,
@@ -97,7 +97,7 @@ export default function LyricsForm() {
         <Label className='block text-sm font-medium text-gray-900 mb-2'>
           Background
         </Label>
-        <ListboxButton className='block w-full cursor-default rounded-md bg-white py-1.5 pr-2 pl-3 text-left text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 inline-flex items-center'>
+        <ListboxButton className='w-full cursor-default rounded-md bg-white py-1.5 pr-2 pl-3 text-left text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 inline-flex items-center'>
           <span className='block truncate flex-1'>{backgroundOption}</span>
           <ChevronsUpDown size={15} />
         </ListboxButton>
@@ -128,7 +128,7 @@ export default function LyricsForm() {
             type='text'
             placeholder='lyrics'
             defaultValue={(state.payload?.get('fileName') as string) || ''}
-            className=' w-full px-3 py-1.5 sm:text-sm/6  text-base grow py-1.5 pr-1 pl-3 focus:outline-none placeholder:text-gray-400 block min-w-0 '
+            className=' w-full px-3 py-1.5 sm:text-sm/6  text-base grow pr-1 pl-3 focus:outline-none placeholder:text-gray-400 block min-w-0 '
           />
           <div className='shrink-0 text-base text-gray-500 select-none sm:text-sm/6 '>
             .pptx
