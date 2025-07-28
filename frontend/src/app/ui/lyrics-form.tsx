@@ -1,7 +1,7 @@
 'use client';
 import { createPptx, State } from '@/app/lib/actions';
 import { useActionState, useEffect, useState } from 'react';
-import { ChevronsUpDown, Download } from 'lucide-react';
+import { ChevronsUpDown, Circle, Download } from 'lucide-react';
 import {
   Label,
   Listbox,
@@ -135,9 +135,18 @@ export default function LyricsForm() {
           </div>
         </div>
       </div>
-      <button className='rounded-md bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 inline-flex items-center'>
-        <Download size={15} />
-        <span className='ml-2'>Download</span>
+      <button
+        disabled={isPending}
+        className='rounded-md bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 inline-flex items-center disabled:bg-indigo-500 disabled:pointer-events-none min-w-[8.25rem] justify-center'
+      >
+        {isPending ? (
+          <Circle className='animate-spin' size={20} strokeWidth={3}></Circle>
+        ) : (
+          <>
+            <Download size={15} />
+            <span className='ml-2'>Download</span>
+          </>
+        )}
       </button>
     </form>
   );
