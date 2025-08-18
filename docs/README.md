@@ -1,5 +1,7 @@
 # Lyrics to PPTX
 
+A simple web form for creating lyrics slides for songs by simply pasting them in. 
+
 Check it out [here](https://lyrics-to-pptx-web.vercel.app/)!
 
 ## Project Documentation
