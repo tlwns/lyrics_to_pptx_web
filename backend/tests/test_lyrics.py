@@ -1,3 +1,6 @@
+"""
+Test suite for the lyrics module.
+"""
 from fastapi.testclient import TestClient
 from fastapi import status
 from app.main import app
@@ -36,7 +39,10 @@ def test_generate_empty_filename():
 
     assert response.status_code == status.HTTP_200_OK
     assert response.headers["Content-Disposition"] == "attachment; filename=lyrics.pptx"
-    assert response.headers["Content-Type"] == "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    assert response.headers["Content-Type"] == (
+        "application/vnd.openxmlformats-officedocument."
+        "presentationml.presentation"
+    )
 
 
 def test_generate_invalid_background_option():
@@ -66,4 +72,7 @@ def test_generate_valid_lyrics():
 
     assert response.status_code == status.HTTP_200_OK
     assert response.headers["Content-Disposition"] == "attachment; filename=test_lyrics"
-    assert response.headers["Content-Type"] == "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    assert response.headers["Content-Type"] == (
+        "application/vnd.openxmlformats-officedocument."
+        "presentationml.presentation"
+    )
