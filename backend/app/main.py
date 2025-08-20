@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from lyrics import router as lyrics_router
+from app.lyrics import router as lyrics_router
 app = FastAPI()
 
 app.add_middleware(

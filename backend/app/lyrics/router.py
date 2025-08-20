@@ -1,13 +1,13 @@
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import StreamingResponse
-from lyrics.schemas import LyricsRequest
-from lyrics.service import generate_pptx_in_memory
+from app.lyrics.schemas import LyricsRequest
+from app.lyrics.service import generate_pptx_in_memory
 
 router = APIRouter()
 
 
 @router.post("/generate")
-async def generate_pptx(data: LyricsRequest):
+async def generate_pptx(data: LyricsRequest) -> StreamingResponse:
     """Generate a PowerPoint presentation from the provided lyrics.
 
     Args:
@@ -35,5 +35,6 @@ async def generate_pptx(data: LyricsRequest):
         pptx_io,
         media_type="application/vnd.openxmlformats-officedocument.presentationml.presentation",
         headers={
-            "Content-Disposition": f"attachment; filename={data.filename or 'lyrics.pptx'}"}
+            "Content-Disposition": f"attachment; filename={data.filename or 'lyrics.pptx'}",
+        }
     )

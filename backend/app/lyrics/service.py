@@ -3,8 +3,8 @@ from io import BytesIO
 from pptx import Presentation
 from pptx.enum.text import PP_ALIGN
 from pptx.util import Inches, Pt
-from lyrics.utils import split_lyrics
-from lyrics.schemas import BackgroundOption
+from app.lyrics.utils import split_lyrics
+from app.lyrics.schemas import BackgroundOption
 
 
 def generate_pptx_in_memory(lyrics: str, background_option: BackgroundOption) -> BytesIO:
@@ -20,7 +20,7 @@ def generate_pptx_in_memory(lyrics: str, background_option: BackgroundOption) ->
     """
 
     if not lyrics.strip():
-        raise ValueError("Lyrics cannot be empty")
+        raise ValueError("Lyrics cannot be empty.")
 
     buffer = BytesIO()
     pres = build_pptx(lyrics, background_option)
