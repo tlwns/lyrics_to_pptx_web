@@ -9,7 +9,7 @@ from pptx.util import Inches, Pt
 from lyrics.utils import split_lyrics
 from lyrics.schemas import BackgroundOption
 
-DEFAULT_BACKGROUND_IMAGE = "app/static/default_lyrics_background.jpg"
+DEFAULT_BACKGROUND_IMAGE = "app/static/gift_lyrics_background.jpg"
 
 
 def generate_pptx_in_memory(lyrics: str, background_option: BackgroundOption) -> BytesIO:
