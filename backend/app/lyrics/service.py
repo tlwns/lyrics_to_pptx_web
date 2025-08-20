@@ -1,10 +1,15 @@
+"""
+Service layer for processing lyrics and generating PowerPoint presentations.
+"""
 from io import BytesIO
 
 from pptx import Presentation
 from pptx.enum.text import PP_ALIGN
 from pptx.util import Inches, Pt
-from app.lyrics.utils import split_lyrics
-from app.lyrics.schemas import BackgroundOption
+from lyrics.utils import split_lyrics
+from lyrics.schemas import BackgroundOption
+
+DEFAULT_BACKGROUND_IMAGE = "app/static/default_lyrics_background.jpg"
 
 
 def generate_pptx_in_memory(lyrics: str, background_option: BackgroundOption) -> BytesIO:
@@ -53,7 +58,7 @@ def build_pptx(lyrics: str, background_option: BackgroundOption) -> Presentation
             # Add a black slide if new song is indicated by "////"
             slide = pres.slides.add_slide(pres.slide_layouts[5])
             if background_option is BackgroundOption.GIFT:
-                slide.shapes.add_picture("app/static/gift_lyrics_background.jpg", Inches(0), Inches(0),
+                slide.shapes.add_picture(DEFAULT_BACKGROUND_IMAGE, Inches(0), Inches(0),
                                          width=pres.slide_width, height=pres.slide_height)
             continue
 
@@ -69,7 +74,7 @@ def build_pptx(lyrics: str, background_option: BackgroundOption) -> Presentation
             # and add the background image if provided
             slide = pres.slides.add_slide(pres.slide_layouts[6])
             if background_option is BackgroundOption.GIFT:
-                slide.shapes.add_picture("app/static/gift_lyrics_background.jpg", Inches(0), Inches(0),
+                slide.shapes.add_picture(DEFAULT_BACKGROUND_IMAGE, Inches(0), Inches(0),
                                          width=pres.slide_width, height=pres.slide_height)
 
             # Add a textbox with the lyrics
@@ -85,7 +90,7 @@ def build_pptx(lyrics: str, background_option: BackgroundOption) -> Presentation
     # Add a final blank slide
     slide = pres.slides.add_slide(pres.slide_layouts[5])
     if background_option is BackgroundOption.GIFT:
-        slide.shapes.add_picture("app/static/gift_lyrics_background.jpg", Inches(0), Inches(0),
+        slide.shapes.add_picture(DEFAULT_BACKGROUND_IMAGE, Inches(0), Inches(0),
                                  width=pres.slide_width, height=pres.slide_height)
 
     return pres

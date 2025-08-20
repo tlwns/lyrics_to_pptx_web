@@ -1,7 +1,11 @@
+"""
+Router for handling lyrics-related requests. 
+"""
+
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import Response
-from app.lyrics.schemas import LyricsRequest
-from app.lyrics.service import generate_pptx_in_memory
+from lyrics.schemas import LyricsRequest
+from lyrics.service import generate_pptx_in_memory
 
 router = APIRouter()
 

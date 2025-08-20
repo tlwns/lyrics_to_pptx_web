@@ -1,7 +1,11 @@
+"""
+Main entry point for the FastAPI application.
+"""
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.lyrics import router as lyrics_router
+from lyrics import router as lyrics_router
 app = FastAPI()
 
 app.add_middleware(
