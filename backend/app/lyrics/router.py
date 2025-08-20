@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, status
-from fastapi.responses import StreamingResponse
+from fastapi.responses import Response
 from app.lyrics.schemas import LyricsRequest
 from app.lyrics.service import generate_pptx_in_memory
 
@@ -7,7 +7,7 @@ router = APIRouter()
 
 
 @router.post("/generate")
-async def generate_pptx(data: LyricsRequest) -> StreamingResponse:
+async def generate_pptx(data: LyricsRequest) -> Response:
     """Generate a PowerPoint presentation from the provided lyrics.
 
     Args:
@@ -19,7 +19,8 @@ async def generate_pptx(data: LyricsRequest) -> StreamingResponse:
         StreamingResponse: A response containing the generated PowerPoint file.
     """
     try:
-        pptx_io = generate_pptx_in_memory(data.lyrics, data.background_option)
+        pptx_bytes = generate_pptx_in_memory(
+            data.lyrics, data.background_option)
     except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -31,8 +32,8 @@ async def generate_pptx(data: LyricsRequest) -> StreamingResponse:
             detail="An unexpected error occurred: " + str(e)
         ) from e
 
-    return StreamingResponse(
-        pptx_io,
+    return Response(
+        pptx_bytes,
         media_type="application/vnd.openxmlformats-officedocument.presentationml.presentation",
         headers={
             "Content-Disposition": f"attachment; filename={data.filename or 'lyrics.pptx'}",

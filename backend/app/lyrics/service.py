@@ -16,7 +16,7 @@ def generate_pptx_in_memory(lyrics: str, background_option: BackgroundOption) ->
         background_option (BackgroundOption): The background option for the slides.
 
     Returns:
-        BytesIO: A BytesIO object containing the generated PowerPoint file.
+        bytes: The bytes object of the generated PowerPoint file.
     """
 
     if not lyrics.strip():
@@ -26,7 +26,7 @@ def generate_pptx_in_memory(lyrics: str, background_option: BackgroundOption) ->
     pres = build_pptx(lyrics, background_option)
     pres.save(buffer)
     buffer.seek(0)  # Reset the buffer position to the beginning
-    return buffer
+    return buffer.read1()
 
 
 def build_pptx(lyrics: str, background_option: BackgroundOption) -> Presentation:
