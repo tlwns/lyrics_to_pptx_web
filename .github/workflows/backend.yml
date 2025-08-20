@@ -27,7 +27,7 @@ jobs:
       working-directory: ./backend
     - name: Lint with pylint
       run: |
-        run: pylint $(git ls-files '*.py')
+        pylint $(git ls-files '*.py')
         working-directory: ./backend
     - name: Test with pytest
       run: |
