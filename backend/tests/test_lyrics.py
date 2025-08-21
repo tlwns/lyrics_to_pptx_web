@@ -3,6 +3,9 @@ Test suite for the lyrics module.
 """
 from io import BytesIO
 from pptx import Presentation
+from pptx.shapes.autoshape import Shape
+
+from typing import cast
 
 from fastapi.testclient import TestClient
 from fastapi import status
@@ -84,4 +87,5 @@ def test_generate_valid_lyrics():
     content = response.content
     pres = Presentation(BytesIO(content))
     assert len(pres.slides) == 2  # Lyrics and empty final slide
-    assert pres.slides[0].shapes[0].text == "\nSample lyrics"
+    shape: Shape = cast(Shape, pres.slides[0].shapes[0])
+    assert shape.text == "\nSample lyrics"

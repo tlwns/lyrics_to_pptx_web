@@ -34,7 +34,7 @@ def generate_pptx_in_memory(lyrics: str, background_option: BackgroundOption) ->
     return buffer.read1()
 
 
-def build_pptx(lyrics: str, background_option: BackgroundOption) -> Presentation:
+def build_pptx(lyrics: str, background_option: BackgroundOption) -> Presentation:   # type: ignore
     """
     Build a PowerPoint presentation with the given lyrics.
 
