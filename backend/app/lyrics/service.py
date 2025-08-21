@@ -12,7 +12,7 @@ from lyrics.schemas import BackgroundOption
 DEFAULT_BACKGROUND_IMAGE = "app/static/gift_lyrics_background.jpg"
 
 
-def generate_pptx_in_memory(lyrics: str, background_option: BackgroundOption) -> BytesIO:
+def generate_pptx_in_memory(lyrics: str, background_option: BackgroundOption) -> bytes:
     """
     Generate a PowerPoint presentation in memory with the given lyrics.
 
