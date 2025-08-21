@@ -2,15 +2,14 @@
 Test suite for the lyrics module.
 """
 from io import BytesIO
+from typing import cast
+
+from fastapi import status
+from fastapi.testclient import TestClient
 from pptx import Presentation
 from pptx.shapes.autoshape import Shape
 
-from typing import cast
-
-from fastapi.testclient import TestClient
-from fastapi import status
 from app.main import app
-
 
 # Status codes
 VALUE_ERROR = status.HTTP_400_BAD_REQUEST
