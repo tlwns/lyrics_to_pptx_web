@@ -1,9 +1,13 @@
 """
 Test suite for the lyrics module.
 """
+from io import BytesIO
+from pptx import Presentation
+
 from fastapi.testclient import TestClient
 from fastapi import status
 from app.main import app
+
 
 # Status codes
 VALUE_ERROR = status.HTTP_400_BAD_REQUEST
@@ -76,3 +80,8 @@ def test_generate_valid_lyrics():
         "application/vnd.openxmlformats-officedocument."
         "presentationml.presentation"
     )
+
+    content = response.content
+    pres = Presentation(BytesIO(content))
+    assert len(pres.slides) == 2  # Lyrics and empty final slide
+    assert pres.slides[0].shapes[0].text == "\nSample lyrics"

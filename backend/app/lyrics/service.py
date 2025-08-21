@@ -81,6 +81,7 @@ def build_pptx(lyrics: str, background_option: BackgroundOption) -> Presentation
             box = slide.shapes.add_textbox(
                 Inches(2), Inches(2), Inches(9.5), Inches(5))
             frame = box.text_frame
+
             for line in part:
                 para = frame.add_paragraph()
                 para.text = line
