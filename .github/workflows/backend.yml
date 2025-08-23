@@ -29,6 +29,11 @@ jobs:
       run: |
         pylint $(git ls-files '*.py')
       working-directory: ./backend
+    - name: Type check with pyright
+      run: |
+        pip install pyright
+        pyright
+      working-directory: ./backend
     - name: Test with pytest
       run: |
         pytest
