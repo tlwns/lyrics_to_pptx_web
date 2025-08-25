@@ -50,6 +50,9 @@ jobs:
         working-directory: ./frontend
         runTests: false
 
+    - name: Set env
+      run: echo "NEXT_PUBLIC_BACKEND_URL=http://localhost:8000" >> $GITHUB_ENV
+    
     - name: Cypress test
       uses: cypress-io/github-action@v6
       with:
@@ -57,7 +60,6 @@ jobs:
         build: pnpm build
         start: pnpm test-run
         browser: chrome
-        env: NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
         spec: cypress/e2e/app.cy.ts
         working-directory: ./frontend
         wait-on: http://localhost:3000
