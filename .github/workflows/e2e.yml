@@ -44,7 +44,6 @@ jobs:
       with:
         node-version: 22
         cache: 'pnpm'
-        cache-dependency-path: ./frontend/pnpm-lock.yaml
     - name: Test
       uses: cypress-io/github-action@v6
       with:
