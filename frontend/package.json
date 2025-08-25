@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "cypress:open": "cypress open",
-    "test": "start-server-and-test start http://localhost:3000 cypress:open"
+    "cypress:run": "cypress run",
+    "test-run": "start-server-and-test start http://localhost:3000 cypress:run  --spec 'cypress/e2e/app.cy.ts'",
+    "test-open": "start-server-and-test start http://localhost:3000 cypress:open"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
