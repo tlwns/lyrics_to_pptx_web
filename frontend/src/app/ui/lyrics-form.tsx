@@ -48,6 +48,7 @@ export default function LyricsForm() {
       const url = URL.createObjectURL(state.blob);
       const a = document.createElement('a');
       a.href = url;
+
       a.download = (state.payload?.get('fileName') as string) || 'lyrics.pptx';
 
       document.body.appendChild(a);
@@ -97,17 +98,22 @@ export default function LyricsForm() {
         <Label className='block text-sm font-medium text-gray-900 mb-2'>
           Background
         </Label>
-        <ListboxButton className='w-full cursor-default rounded-md bg-white py-1.5 pr-2 pl-3 text-left text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 inline-flex items-center'>
+        <ListboxButton
+          data-cy={'backgroundOptionsBtn'}
+          className='w-full cursor-default rounded-md bg-white py-1.5 pr-2 pl-3 text-left text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 inline-flex items-center'
+        >
           <span className='block truncate flex-1'>{backgroundOption}</span>
           <ChevronsUpDown size={15} />
         </ListboxButton>
         <ListboxOptions
           transition
           anchor='bottom'
-          className='mt-1 w-(--button-width) rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden data-leave:transition data-leave:duration-100 data-leave:ease-in data-closed:data-leave:opacity-0 sm:text-sm/6 '
+          className='mt-1 w-(--button-width) rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden data-leave:transition data-leave:duration-100 data-leave:ease-in data-closed:data-leave:opacity-0 sm:text-sm/6'
+          data-cy={'backgroundOptionsDropdown'}
         >
           {backgroundOptions.map((option) => (
             <ListboxOption
+              data-cy={`backgroundOptionValue${option}`}
               key={option}
               value={option}
               className='group relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none data-focus:bg-indigo-600 data-focus:text-white data-focus:outline-hidden'
