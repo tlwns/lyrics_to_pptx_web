@@ -39,8 +39,9 @@ jobs:
     - name: Install pnpm
       run: |
         npm install -g pnpm
-        pnpm config set side-effects-cache false --location ./frontend
-      
+        pnpm config set side-effects-cache false 
+        pnpm --allow-build=cypress add --save-dev cypress
+
     - name: Install dependencies
       uses: cypress-io/github-action@v6
       with: 
