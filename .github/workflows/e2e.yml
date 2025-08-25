@@ -41,6 +41,8 @@ jobs:
         npm install -g pnpm
         pnpm config set side-effects-cache false 
         pnpm --allow-build=cypress add --save-dev cypress
+        pnpm i
+      working-directory: ./frontend
 
     - name: Install dependencies
       uses: cypress-io/github-action@v6
@@ -52,7 +54,6 @@ jobs:
       uses: cypress-io/github-action@v6
       with:
         install: false
-        run: pnpm i
         build: pnpm build
         start: pnpm test-run
         browser: chrome
