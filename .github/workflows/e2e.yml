@@ -41,7 +41,9 @@ jobs:
       with:
         node-version: 24
         cache: "pnpm"
-        cache-dependency-path: ./frontend/pnpm-lock.yaml
+        cache-dependency-path: |
+          ./frontend/pnpm-lock.yaml
+          ./frontend/.next/cache
 
     - name: Setup Cypress
       uses: cypress-io/github-action@v6
@@ -62,6 +64,7 @@ jobs:
         spec: cypress/e2e/app.cy.ts
         working-directory: ./frontend
         wait-on: http://localhost:3000
+          
         
           
 
