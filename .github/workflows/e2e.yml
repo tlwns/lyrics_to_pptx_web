@@ -52,9 +52,7 @@ jobs:
       with: 
         working-directory: ./frontend
         runTests: false
-        
-    - name: Cache NextJS Build    
-      uses: actions/cache@v4
+    - uses: actions/cache@v4
       with:
         path: ./frontend/.next/cache
         key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
