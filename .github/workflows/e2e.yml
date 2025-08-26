@@ -55,7 +55,7 @@ jobs:
       with:
         install: false
         build: pnpm build
-        start: pnpm test-run
+        start: pnpm start
         browser: chrome
         spec: cypress/e2e/app.cy.ts
         working-directory: ./frontend
