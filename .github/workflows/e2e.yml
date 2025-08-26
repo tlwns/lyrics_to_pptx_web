@@ -55,8 +55,7 @@ jobs:
         # If source files changed but packages didn't, rebuild from a prior cache.
         restore-keys: |
           ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}
-        working-directory: ./frontend
-          
+                      
     - name: Set env
       run: echo "NEXT_PUBLIC_BACKEND_URL=http://localhost:8000" >> $GITHUB_ENV
     
