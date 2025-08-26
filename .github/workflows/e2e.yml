@@ -32,14 +32,22 @@ jobs:
 
     # Run frontend
     - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 10
+    - name: Use Node.js 24
+      uses: actions/setup-node@v4
+      with:
+        node-version: 24
+        cache: "pnpm"
+    - name: Install dependencies
       run: |
-        npm install -g pnpm
         pnpm config set side-effects-cache false 
         pnpm --allow-build=cypress add --save-dev cypress
-        pnpm i
+        pnpm install
       working-directory: ./frontend
 
-    - name: Install dependencies
+    - name: Setup Cypress
       uses: cypress-io/github-action@v6
       with: 
         working-directory: ./frontend
