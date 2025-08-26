@@ -12,6 +12,9 @@ jobs:
 
   cypress-run:
     runs-on: ubuntu-latest
+    env: 
+      NEXT_PUBLIC_BACKEND_URL: http://localhost:8000
+      
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -58,10 +61,7 @@ jobs:
         # If source files changed but packages didn't, rebuild from a prior cache.
         restore-keys: |
           ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}
-                      
-    - name: Set env
-      run: echo "NEXT_PUBLIC_BACKEND_URL=http://localhost:8000" >> $GITHUB_ENV
-    
+ 
     - name: Cypress test
       uses: cypress-io/github-action@v6
       with:
