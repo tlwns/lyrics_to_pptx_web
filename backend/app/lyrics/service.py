@@ -5,9 +5,10 @@ Service layer for processing lyrics and generating PowerPoint presentations.
 from io import BytesIO
 
 from pptx import Presentation
+from pptx.util import Length
 from pptx.enum.text import PP_ALIGN
 from pptx.util import Inches, Pt
-from lyrics.utils import split_lyrics, split_lines
+from lyrics.utils import is_hangul, split_lyrics, split_lines
 from lyrics.schemas import BackgroundOption
 
 DEFAULT_BACKGROUND_IMAGE = "app/static/gift_background.jpg"
@@ -88,14 +89,24 @@ def build_pptx(lyrics: str, background_option: BackgroundOption) -> Presentation
                 )
 
             # Add a textbox with the lyrics
-            box = slide.shapes.add_textbox(Inches(2), Inches(2), Inches(9.5), Inches(5))
+            box = slide.shapes.add_textbox(
+                Inches(0),
+                Inches(2),
+                Length(pres.slide_width if pres.slide_width else 0),
+                Length(pres.slide_height if pres.slide_height else 0),
+            )
             frame = box.text_frame
 
             for line in part:
                 para = frame.add_paragraph()
+                para.font.size = Pt(48)
+                para.line_spacing = 2
                 para.text = line
                 para.alignment = PP_ALIGN.CENTER
-                para.font.size = Pt(44)
+                if is_hangul(line):
+                    para.font.name = "Spoqa Han Sans Neo"
+                else:
+                    para.font.name = "Lexend"
 
     # Add a final blank slide
     slide = pres.slides.add_slide(pres.slide_layouts[5])

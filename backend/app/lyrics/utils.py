@@ -50,3 +50,11 @@ def split_lines(lines):
     right = split_lines(lines[mid:])
 
     return left + right
+
+
+def is_hangul(line):
+    """
+    Check if a line contains Hangul characters.
+    """
+    hangul_pattern = re.compile(r"[\uAC00-\uD7A3]+")
+    return bool(hangul_pattern.search(line))
